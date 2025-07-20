@@ -2,8 +2,7 @@ const display = document.querySelector(".display");
 const buttons = document.querySelectorAll("button");
 const specialChars = ["%", "*", "/", "-", "+", "="];
 let output = "";
-
-const form = document.querySelector("#call-form");
+let customerNumber = ""; // 누른 숫자 누적 저장
 
 const calculate = (btnValue) => {
   display.focus();
@@ -11,28 +10,35 @@ const calculate = (btnValue) => {
   if (btnValue === "=" && output !== "") {
     try {
       output = eval(output.replace("%", "/100"));
-      display.value = output;
 
-      // 결과를 서버로 POST 전송
-      setTimeout(() => {
-        form.submit();
-      }, 100); // 잠깐 기다렸다가 전송
+      if (customerNumber) {
+        speak(`${parseInt(customerNumber)}번 고객님, 음료 나왔습니다`);
+      }
+      customerNumber = ""; // 초기화
     } catch {
       output = "Error";
-      display.value = output;
+      speak("계산에 오류가 있습니다");
     }
   } else if (btnValue === "AC") {
     output = "";
-    display.value = "";
+    customerNumber = "";
   } else if (btnValue === "DEL") {
     output = output.toString().slice(0, -1);
-    display.value = output;
+    customerNumber = customerNumber.toString().slice(0, -1);
   } else {
-    if (specialChars.includes(btnValue) && specialChars.includes(output[output.length - 1])) return;
+    if (specialChars.includes(btnValue) && specialChars.includes(output[output.length - 1])) {
+      return;
+    }
     if (output === "" && specialChars.includes(btnValue)) return;
+
+    if (!isNaN(btnValue)) {
+      customerNumber += btnValue; // 숫자 누적
+    }
+
     output += btnValue;
-    display.value = output;
   }
+
+  display.value = output;
 };
 
 buttons.forEach((button) => {
@@ -41,12 +47,19 @@ buttons.forEach((button) => {
 
 document.addEventListener("keydown", (event) => {
   const key = event.key;
-  const allowedKeys = [...Array(10).keys(), ".", "Enter", "Backspace", "%", "*", "/", "-", "+"];
-  
-  if (allowedKeys.includes(key) || key === "Backspace") {
+  const allowedKeys = [...Array(10).keys()].map(String).concat([".", "Enter", "Backspace", "%", "*", "/", "-", "+"]);
+
+  if (allowedKeys.includes(key)) {
     let value = key === "Enter" ? "=" : key;
     value = key === "Backspace" ? "DEL" : value;
     calculate(value);
   }
 });
-            
+
+// 음성 출력 함수
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance();
+  msg.lang = 'ko-KR';
+  msg.text = text;
+  window.speechSynthesis.speak(msg);
+}
