@@ -1,32 +1,47 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cloudtype - Flask</title>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
-  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Andev Web</title>
 </head>
 <body>
-<div class="hero min-h-screen bg-base-200">
-  <div class="hero-content flex-col lg:flex-row-reverse">
-    <img src="{{ url_for('static', filename='img/flask.webp') }}" class="w-36 rounded-lg md:ml-5 lg:ml-5"  alt="flask"/>
-    <div>
-      <h1 class="text-5xl font-bold">Flask</h1>
-      <p class="py-6">클라우드타입에서 배포한 Flask 어플리케이션입니다.</p>
-      <button type="button" onclick="window.open('https://github.com/cloudtype-examples/java-springboot')" class="btn btn-outline rounded">
-        GitHub
-      </button>
-      <button type="button" onclick="window.open('https://docs.cloudtype.io/')" class="btn btn-outline rounded">
-        Docs
-      </button>
-      <button type="button" onclick="window.open('https://discord.gg/U7HX4BA6hu')" class="btn btn-outline rounded">
-        Discord
-      </button>
+<form method="POST">
+  <input type="text" class="display" name="number" readonly />
+  <div class="container">
+    <input type="text" class="display" readonly />
+
+    <div class="buttons">
+      <button class="operator" data-value="AC">AC</button>
+      <button class="operator" data-value="DEL">DEL</button>
+      <button class="operator" data-value="%"></button>
+      <button class="operator" data-value="/"></button>
+
+      <button data-value="7" type="button">7</button>
+      <button data-value="8" type="button">8</button>
+      <button data-value="9" type="button">9</button>
+      <button class="operator" data-value="*"></button>
+
+      <button data-value="4" type="button">4</button>
+      <button data-value="5" type="button">5</button>
+      <button data-value="6" type="button">6</button>
+      <button class="operator" data-value="-"></button>
+
+      <button data-value="1" type="button">1</button>
+      <button data-value="2" type="button">2</button>
+      <button data-value="3" type="button">3</button>
+      <button class="operator" data-value="+"></button>
+
+      <button data-value="0" type="button">0</button>
+      <button data-value="00"type="button">00</button>
+      <button data-value="." type="button">.</button>
+      <button class="operator" data-value="=" type="submit">=</button>
     </div>
   </div>
-</div>
+
+</form>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+
