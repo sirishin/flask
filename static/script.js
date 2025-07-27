@@ -61,5 +61,8 @@ function speak(text) {
   const msg = new SpeechSynthesisUtterance();
   msg.lang = 'ko-KR';
   msg.text = text;
+  msg.volum = 1.0;
+  msg.rate = 0.85;
+  msg.pitch = 1.2;
   window.speechSynthesis.speak(msg);
 }
