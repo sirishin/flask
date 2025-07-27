@@ -12,7 +12,7 @@ const calculate = (btnValue) => {
       output = eval(output.replace("%", "/100"));
 
       if (customerNumber) {
-        speak(`${parseInt(customerNumber)}번 고객님, 음료 나왔습니다`);
+        speak(`음료 나왔습니다, ${parseInt(customerNumber)}번`);
       }
       customerNumber = ""; // 초기화
     } catch {
