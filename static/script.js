@@ -12,7 +12,7 @@ const calculate = (btnValue) => {
       output = eval(output.replace("%", "/100"));
 
       if (customerNumber) {
-        speak(`음료 나왔습니다, ${parseInt(customerNumber)}번`);
+        speak(`이디야, ${parseInt(customerNumber)}번 고객님 음료나왔습니다. `);
       }
       customerNumber = ""; // 초기화
     } catch {
@@ -61,8 +61,5 @@ function speak(text) {
   const msg = new SpeechSynthesisUtterance();
   msg.lang = 'ko-KR';
   msg.text = text;
-  msg.volum = 1.0;
-  msg.rate = 0.85;
-  msg.pitch = 1.2;
   window.speechSynthesis.speak(msg);
 }
